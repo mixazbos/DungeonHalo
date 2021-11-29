@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class languagesController : MonoBehaviour
 {
+    private string lang { get; set; }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        lang = PlayerPrefs.GetString("language");
+        Init(); // здесь вызов скрипта на языки
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //скрипт вызова инициализации языка
 }
