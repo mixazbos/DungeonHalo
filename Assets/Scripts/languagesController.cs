@@ -4,13 +4,28 @@ using UnityEngine;
 
 public class languagesController : MonoBehaviour
 {
-    private string lang { get; set; }
+    public string lang { get; set; }
+    public GameObject[] ui_elements;
 
     // Start is called before the first frame update
     void Start()
     {
         lang = PlayerPrefs.GetString("language");
-        Init(); // здесь вызов скрипта на языки
+        Init(lang); // здесь вызов скрипта загрузки файлов языка
+
+        //установка текста в элементы
+        ui_elements = GameObject.FindGameObjectsWithTag("UI");
+        foreach (var obj in ui_elements)
+        {
+            try
+            {
+                var text = obj.GetChild[0].GetComponent<Text>().text = GetText(gameObject.Name);
+            }
+            catch
+            {
+                Debug.Log("У объекта " + obj.Name + " нет текста");
+            }
+        }
     }
 
     //скрипт вызова инициализации языка

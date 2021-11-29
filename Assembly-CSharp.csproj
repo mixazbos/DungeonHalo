@@ -57,7 +57,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Constants.cs" />
     <Compile Include="Assets\Scripts\languagesController.cs" />
+    <Compile Include="Assets\Scripts\Menu.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>F:/Unity projects/DungeonHalo/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
