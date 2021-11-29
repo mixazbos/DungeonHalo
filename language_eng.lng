@@ -1,0 +1,7 @@
+﻿Btn_play : Play;
+Btn_exit : Exit;
+Btn_options : Options;
+Btn_continue : Continue;
+Btn_share : Share;
+Btn_save : Save Game;
+Btn_action : [E] interact;

@@ -6,10 +6,12 @@ using UnityEngine;
 public class Menu : MonoBehaviour
 {
     public GameObject[] ui_elements;
+    public GameObject cam;
 
     void Start()
     {
         ui_elements = GameObject.FindGameObjectsWithTag("UI");
+        cam = GameObject.Find("Main Camera");
     }
 
     public void Btn(string name)
@@ -26,6 +28,13 @@ public class Menu : MonoBehaviour
 
             case "Btn_options":
                 ui_elements[2].GetComponent<Animation>().Play("slide"); //подумать
+                break;
+
+            case "set_rus": PlayerPrefs.SetString("language", "rus");
+                cam.GetComponent<languagesController>().Start();
+                break;
+            case "set_eng": PlayerPrefs.SetString("language", "eng");
+                cam.GetComponent<languagesController>().Start();
                 break;
         }
     }

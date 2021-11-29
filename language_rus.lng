@@ -1,0 +1,7 @@
+﻿Btn_play : Играть;
+Btn_exit : Выход;
+Btn_options : Опции;
+Btn_continue : Продолжить;
+Btn_share : Поделиться;
+Btn_save : Сохранить;
+Btn_action : [E] взаимодействовать;

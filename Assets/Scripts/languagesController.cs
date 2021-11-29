@@ -1,32 +1,93 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class languagesController : MonoBehaviour
 {
-    public string lang { get; set; }
+    public String lang { get; set; }
+    public String lang_pkg { get; set; }
+    public String characters { get; set; }
     public GameObject[] ui_elements;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        lang = PlayerPrefs.GetString("language");
-        Init(lang); // здесь вызов скрипта загрузки файлов языка
+    static Dictionary<string, string> _langs = new Dictionary<string, string>();
+    static Dictionary<string, string> _characters = new Dictionary<string, string>();
 
-        //установка текста в элементы
+    public void Start()
+    {
+        Begin();
+    }
+
+ 
+    private void Begin()
+    {
+        _langs.Clear();
+        InitLang(PlayerPrefs.GetString("language")); // здесь вызов скрипта загрузки файлов языка
+
         ui_elements = GameObject.FindGameObjectsWithTag("UI");
         foreach (var obj in ui_elements)
         {
             try
             {
-                var text = obj.GetChild[0].GetComponent<Text>().text = GetText(gameObject.Name);
+                obj.gameObject.transform.GetChild(0).GetComponent<Text>().text = GetText(obj.gameObject.name);
             }
             catch
             {
-                Debug.Log("У объекта " + obj.Name + " нет текста");
+                Debug.Log("У объекта " + obj.gameObject.name + " нет текста");
             }
         }
     }
 
-    //скрипт вызова инициализации языка
+    private void InitLang(string lang)
+    {
+        lang_pkg = File.ReadAllText(@"language_" + lang + ".lng");
+        characters = File.ReadAllText(@"characters.asset");
+
+        var text = lang_pkg.Split('\n');
+        foreach (var c in text)
+        {
+            var t = c.Split(':');
+            _langs.Add(t[0].Trim(), @t[1].Trim().Trim(';'));
+        }
+        
+    }
+
+    static String GetText(string key)
+    {
+        return _langs[key];
+    }
+
+
+    static Dictionary<string, string> GetChars(string key)
+    {
+        Dictionary<string, string> chars = new Dictionary<string, string>();
+
+        var hero = _characters[key]
+            .Replace("{", String.Empty)
+            .Replace("}", String.Empty)
+            .Split(',');
+
+        foreach (var c in hero)
+        {
+            var ret = c.Split('=');
+
+            chars.Add(ret[0], ret[1]);
+        }
+
+        return chars;
+    }
+
+    private void InitChars()
+    {
+        var text = characters.Replace(" ", string.Empty).Split('\n');
+
+        foreach (var c in text)
+        {
+            var t = c.Split(':');
+
+            _characters.Add(t[0], t[1]);
+
+        }
+    }
 }

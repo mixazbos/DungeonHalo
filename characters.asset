@@ -1,0 +1,3 @@
+﻿Player : {speed=1.2,health=100,isAlive=true,name=mixazbos}
+Skeleton : {speed=5.5,health=70,isAlive=true}
+Voider : {speed=3.4,health=90,isAlive=false}
