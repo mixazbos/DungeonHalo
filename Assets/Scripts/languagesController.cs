@@ -42,7 +42,6 @@ public class languagesController : MonoBehaviour
     private void InitLang(string lang)
     {
         lang_pkg = File.ReadAllText(@"language_" + lang + ".lng");
-        characters = File.ReadAllText(@"characters.asset");
 
         var text = lang_pkg.Split('\n');
         foreach (var c in text)
@@ -59,7 +58,7 @@ public class languagesController : MonoBehaviour
     }
 
 
-    static Dictionary<string, string> GetChars(string key)
+    public Dictionary<string, string> GetChars(string key)
     {
         Dictionary<string, string> chars = new Dictionary<string, string>();
 
@@ -78,8 +77,9 @@ public class languagesController : MonoBehaviour
         return chars;
     }
 
-    private void InitChars()
+    public void InitChars()
     {
+        characters = File.ReadAllText(@"characters.asset");
         var text = characters.Replace(" ", string.Empty).Split('\n');
 
         foreach (var c in text)
