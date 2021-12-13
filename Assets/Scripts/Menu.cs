@@ -2,16 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Menu : MonoBehaviour
 {
     public GameObject[] ui_elements;
-    public GameObject cam;
+    public GameObject cam, cursor_light;
 
     void Start()
     {
         ui_elements = GameObject.FindGameObjectsWithTag("UI");
         cam = GameObject.Find("Main Camera");
+        cam.GetComponent<languagesController>().Start();
     }
 
     public void Btn(string name)
@@ -23,7 +25,15 @@ public class Menu : MonoBehaviour
                 break;
 
             case "Btn_exit":
+                GameObject.Find("Dialog").GetComponent<Animation>().Play("slide");
+                break;
+
+            case "Btn_yes_exit":
                 Application.Quit();
+                break; 
+            
+            case "Btn_no_exit":
+                GameObject.Find("Dialog").GetComponent<Animation>().Play("slide_out");
                 break;
 
             case "Btn_options":
@@ -37,6 +47,13 @@ public class Menu : MonoBehaviour
                 cam.GetComponent<languagesController>().Start();
                 break;
         }
+    }
+
+    void Update()
+    {
+        var worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        cursor_light.gameObject.transform
+            .position = new Vector3(worldPosition.x, worldPosition.y, -1f);
     }
 
 }

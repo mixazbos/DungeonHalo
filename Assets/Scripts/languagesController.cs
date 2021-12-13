@@ -34,7 +34,8 @@ public class languagesController : MonoBehaviour
             }
             catch
             {
-                Debug.Log("У объекта " + obj.gameObject.name + " нет текста");
+                //Debug.Log("У объекта " + obj.gameObject.name + " нет текста");
+                obj.GetComponent<Text>().text = GetText(obj.gameObject.name);
             }
         }
     }
