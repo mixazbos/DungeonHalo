@@ -23,7 +23,7 @@ public class languagesController : MonoBehaviour
     private void Begin()
     {
         _langs.Clear();
-        InitLang(PlayerPrefs.GetString("language")); // здесь вызов скрипта загрузки файлов языка
+        InitLang(PlayerPrefs.GetString("language"));
 
         ui_elements = GameObject.FindGameObjectsWithTag("UI");
         foreach (var obj in ui_elements)
@@ -42,7 +42,7 @@ public class languagesController : MonoBehaviour
 
     private void InitLang(string lang)
     {
-        lang_pkg = File.ReadAllText(@"language_" + lang + ".lng");
+        lang_pkg = Utils.getResourceText(@"language_" + lang + ".lng");
 
         var text = lang_pkg.Split('\n');
         foreach (var c in text)
@@ -80,7 +80,7 @@ public class languagesController : MonoBehaviour
 
     public void InitChars()
     {
-        characters = File.ReadAllText(@"characters.asset");
+        characters = Utils.getResourceText(@"characters.asset");
         var text = characters.Replace(" ", string.Empty).Split('\n');
 
         foreach (var c in text)
